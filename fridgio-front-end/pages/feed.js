@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput,Button, ScrollView, ActivityIndicator, TouchableOpacity, Image, KeyboardAvoidingView} from 'react-native';
+import { StyleSheet,SafeAreaView, Text, View, TextInput,FlatList,Button, ScrollView, ActivityIndicator, TouchableOpacity, Image, KeyboardAvoidingView} from 'react-native';
 console.disableYellowBox = true;
 
 import Register from './register.js'
@@ -13,11 +13,14 @@ export default class Feed extends React.Component {
     }
   } // Note that there is no comma after the method completion
 
+  componentWillMount(){
+    this.receitas();
+  }
+
   render() {
     return (
 
 <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-
 
       <View style={styles.container}>
 
@@ -30,13 +33,6 @@ export default class Feed extends React.Component {
             {this.listar()}
           </ScrollView>
 
-        <Button
-          onPress={this.receitas.bind(this)}
-          title="Mostrar Receitas"
-          color="#7920FF"
-        />
-
-
       </View>
 </KeyboardAvoidingView>
     );
@@ -44,13 +40,12 @@ export default class Feed extends React.Component {
 
   receitas() {
 
-    fetch("http://192.168.100.22:3000/receitas", {
+    fetch("http://192.168.15.10:3000/receitas", {
        method: "GET",
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-       },
-       body:  ''
+       }
     })
     .then((response)=> response.json())
     .then((res) =>{
